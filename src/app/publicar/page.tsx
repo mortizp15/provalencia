@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabaseClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 import {
@@ -48,6 +48,15 @@ const formSchema = z.object({
 });
 
 export default function PublicarForm() {
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null; 
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,7 +73,7 @@ export default function PublicarForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [rol, setRol] = useState<"profesional" | "afectado" | "">("");
+  const rol = form.watch("rol")
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true)
@@ -209,11 +218,8 @@ export default function PublicarForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Rol</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setRol(value as "profesional" | "afectado");
-                  }}
+                <Select 
+                  onValueChange={field.onChange} 
                   defaultValue={field.value}
                 >
                   <FormControl>
