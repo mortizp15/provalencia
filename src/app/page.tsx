@@ -19,7 +19,7 @@ export default async function Home() {
         <h2 className="mt-10 font-semibold uppercase text-center">Consulta cualquiera de estas opciones</h2>
         <div className="flex flex-col items-center justify-center gap-5 mt-2">
           <div className="flex items-center gap-3">
-            <Link href="/publicar"><Button>Solicitar Ayuda</Button></Link>
+            <Link href="/publicar"><Button>Publicar anuncio</Button></Link>
           </div>
           <Link href="#"><Button>Listado de Profesionales</Button></Link>
           <Link href="#"><Button>Listado de Afectados</Button></Link>

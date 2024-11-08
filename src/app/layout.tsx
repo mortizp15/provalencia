@@ -5,6 +5,7 @@ import { ModeToggle } from "@/components/mode-togle";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import DashboardSections from "@/components/ui/dashboard-sections";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "ProValencia | Inicio",
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body>
+        <Toaster position="top-right" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

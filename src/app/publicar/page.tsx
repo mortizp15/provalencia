@@ -55,13 +55,20 @@ export default function PublicarForm() {
       email: "",
       ubicacion: "",
       rol: "afectado",
+      tipo_establecimiento: "",
       telefono: "",
+      descripcion: "",
+      disponibilidad: "",
+      nombre_servicio: ""
     },
   });
 
+  const [loading, setLoading] = useState(false);
   const [rol, setRol] = useState<"profesional" | "afectado" | "">("");
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true)
+    try {
     const usuario = {
       nombre: data.nombre,
       email: data.email,
@@ -121,7 +128,24 @@ export default function PublicarForm() {
       }
     }
 
-    toast("¡Solicitud Creada!");
+    toast.success("¡Solicitud creada exitosamente!");
+    form.reset({
+      nombre: "",
+      email: "",
+      ubicacion: "",
+      rol: "afectado",
+      tipo_establecimiento: "",
+      telefono: "",
+      descripcion: "",
+      disponibilidad: "",
+      nombre_servicio: ""
+    });
+  } catch (error) {
+    console.error("Error en la solicitud: ", error)
+    toast.error("Hubo un error al procesar tu solicitud")
+  } finally {
+    setLoading(false)
+  }
   };
 
   return (
@@ -394,7 +418,9 @@ export default function PublicarForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">¡Publicar!</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Publicando..." : "¡Publicar!"}
+          </Button>
         </form>
       </Form>
     </section>

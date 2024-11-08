@@ -4,7 +4,6 @@ import { Home, Inbox, HeartCrack, HandHelping, Ticket, BookOpenText, Info, Menu 
 import { Button } from "./ui/button"
 import { useState } from "react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
-import Link from "next/link"
 
   const items = [
     {
@@ -14,7 +13,7 @@ import Link from "next/link"
     },
     {
         title: "Ofrecer Ayuda",
-        url: "#",
+        url: "/publicar",
         icon: HandHelping
     },
     {
