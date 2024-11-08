@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from '@/components/app-sidebar' 
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-togle";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Separator } from "@/components/ui/separator";
+import DashboardSections from "@/components/ui/dashboard-sections";
 
 export const metadata: Metadata = {
   title: "ProValencia | Inicio",
@@ -26,15 +17,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body>      
-        <SidebarProvider>
-          <AppSidebar/>
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+    <html lang="es" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          
+          <header className="flex h-16 w-full items-center justify-between gap-2 border-b px-4">
+            <div className="flex items-center">
+              <AppSidebar />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <h1 className="text-blue-500 font-semibold">ProValencia</h1>
+            </div>
+            <ModeToggle />
+          </header>
+          <DashboardSections children={children} />
+        </ThemeProvider>
       </body>
     </html>
   );

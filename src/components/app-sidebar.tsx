@@ -1,27 +1,15 @@
 "use client"
 
-import { Home, Inbox, HeartCrack, HandHelping, Ticket, BookOpenText, Info } from "lucide-react"
-import logo from '@/lib/ProValencia.png'
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-  } from "@/components/ui/sidebar"
-import Link from "next/link"
+import { Home, Inbox, HeartCrack, HandHelping, Ticket, BookOpenText, Info, Menu } from "lucide-react"
 import { Button } from "./ui/button"
-import Image from "next/image"
+import { useState } from "react"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
+import Link from "next/link"
 
   const items = [
     {
         title: "Inicio",
-        url: "#",
+        url: "/",
         icon: Home
     },
     {
@@ -58,36 +46,33 @@ import Image from "next/image"
   
   export function AppSidebar() {
 
+    const [open, setOpen] = useState(false)
+
     return (
-        <Sidebar>
-          <SidebarHeader className="flex items-center">
-            <Image className="mt-4" src={logo} width={100} height={100} alt="logo"/>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel className="font-semibold">Menú</SidebarGroupLabel>
-              <SidebarGroupContent>
-                  <SidebarMenu>
-                      {items.map(item => (
-                          <SidebarMenuItem key={item.title}>
-                              <SidebarMenuButton asChild>
-                                  <Link href={item.url}>
-                                      <item.icon />
-                                      <span>{item.title}</span>
-                                  </Link>
-                              </SidebarMenuButton>
-                          </SidebarMenuItem>
-                      ))}
-                  </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter>
-              <Button>
-                  Registro
-              </Button>
-          </SidebarFooter>
-        </Sidebar>
+        <Sheet open={open} onOpenChange={setOpen}>
+         <SheetTrigger asChild>
+          <Button size="icon" variant="ghost">
+            <Menu className="h-6 w-6" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-[300px] sm:w-[320px]">
+          <SheetHeader>
+            <SheetTitle className="text-sm text-zinc-500 font-semibold">ProValencia</SheetTitle>
+          </SheetHeader>
+          <div className="flex mt-10 min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden">
+            {items.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.url}
+                  className="text-sm flex items-center p-1 px-2 rounded-md gap-4 hover:text-primary transition-colors hover:bg-sidebar-accent"
+                  onClick={() => setOpen(false)}
+                >
+                  <item.icon className="h-4 w-4"/> {item.title}
+                </a>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
     )
   }
   
