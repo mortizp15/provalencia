@@ -50,13 +50,6 @@ const formSchema = z.object({
 export default function PublicarForm() {
 
   const [isClient, setIsClient] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null; 
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,8 +65,12 @@ export default function PublicarForm() {
       nombre_servicio: ""
     },
   });
-
   
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const [loading, setLoading] = useState(false);
   const rol = form.watch("rol")
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
@@ -159,6 +156,7 @@ export default function PublicarForm() {
   };
 
   return (
+    isClient && (
     <section className="sm:w-6/12 w-3/4 mx-auto">
         <Breadcrumb className="mb-7 mt-5">
         <BreadcrumbList>
@@ -431,5 +429,6 @@ export default function PublicarForm() {
         </form>
       </Form>
     </section>
+    )
   );
 }
