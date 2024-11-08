@@ -50,6 +50,7 @@ const formSchema = z.object({
 export default function PublicarForm() {
 
   const [isClient, setIsClient] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -72,7 +73,7 @@ export default function PublicarForm() {
     },
   });
 
-  const [loading, setLoading] = useState(false);
+  
   const rol = form.watch("rol")
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
