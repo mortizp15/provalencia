@@ -36,7 +36,9 @@ export default function RootLayout({
             </div>
             <ModeToggle />
           </header>
-          <DashboardSections children={children} />
+          <DashboardSections>
+            {children}
+          </DashboardSections>
         </ThemeProvider>
       </body>
     </html>
